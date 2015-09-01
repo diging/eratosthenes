@@ -15,16 +15,20 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from rest_framework import routers
 import views
+
+router = routers.SimpleRouter(trailing_slash=False)
+router.register(r'repository', views.RepositoryViewSet)
+router.register(r'resource', views.ResourceViewSet)
+router.register(r'collection', views.CollectionViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    # url(r'^get/(?P<repository_id>[0-9]+)/(?P<uri>.*)/$', views.get),
-    url(r'^repositories/(?P<repository_id>[0-9]+)/texts/$', views.repository_texts),
-    url(r'^repositories/(?P<repository_id>[0-9]+)/browse/$', views.repository_browse),
-    url(r'^repositories/(?P<repository_id>[0-9]+)/collections/(?P<collection_id>[0-9]+)/$', views.repository_collection_browse),
-    url(r'^repositories/(?P<repository_id>[0-9]+)/collections/$', views.repository_collections),
-    url(r'^repositories/(?P<repository_id>[0-9]+)/$', views.repository),
-    url(r'^repositories/', views.repositories),
-    url(r'^oauth2/', include('provider.oauth2.urls', namespace = 'oauth2')),
+    url(r'^', include(router.urls)),
+    url(r'^content/(?P<uri>.*)$', views.get_content),
+    url(r'^retrieve/(?P<uri>.*)$', views.retrieve),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]
