@@ -6,3 +6,4 @@ shortuuid==0.4.2
 wheel==0.24.0
 djangorestframework
 django-cors-headers
+mysql-python
