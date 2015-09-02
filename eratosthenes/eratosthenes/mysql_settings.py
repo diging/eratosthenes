@@ -124,7 +124,7 @@ APPEND_SLASH = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/eratosthenestatic/'
+STATIC_URL = '/eratosthenesstatic/'
 STATIC_ROOT = '/var/wwwnginx/eratosthenes/static/'
 
 MEDIA_ROOT = './files/'
